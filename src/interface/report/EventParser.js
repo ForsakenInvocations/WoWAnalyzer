@@ -145,6 +145,7 @@ class EventParser extends React.PureComponent {
   async parseEvents(parser, report, player, fight, events) {
     const jobId = this._jobId;
     try {
+      throw new Error();
       // The events we fetched will be all events related to the selected player. This includes the `combatantinfo` for the selected player. However we have already parsed this event when we loaded the combatants in the `initializeAnalyzers` of the CombatLogParser. Loading the selected player again could lead to bugs since it would reinitialize and overwrite the existing entity (the selected player) in the Combatants module.
       events = events.filter(event => event.type !== 'combatantinfo');
       events = parser.normalize(events);
@@ -187,11 +188,11 @@ class EventParser extends React.PureComponent {
       });
     } catch (err) {
       // Something went wrong during the analysis of the log, there's probably an issue in your analyzer or one of its modules.
-      if (process.env.NODE_ENV === 'production') {
+      // if (process.env.NODE_ENV === 'production') {
         throw new EventsParseError(err);
-      } else {
-        throw err;
-      }
+      // } else {
+      //   throw err;
+      // }
     }
   }
 
